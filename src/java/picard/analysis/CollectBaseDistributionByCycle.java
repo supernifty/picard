@@ -19,13 +19,36 @@ import picard.cmdline.Option;
 import picard.cmdline.programgroups.Metrics;
 import picard.util.RExecutor;
 
+
+
 @CommandLineProgramProperties(
-        usage = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file.",
-        usageShort = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file.",
+        usage = CollectBaseDistributionByCycle.USAGE_SUMMARY + CollectBaseDistributionByCycle.USAGE_DETAILS,
+        usageShort = CollectBaseDistributionByCycle.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
-public class CollectBaseDistributionByCycle extends SinglePassSamProgram {
 
+public class CollectBaseDistributionByCycle extends SinglePassSamProgram {
+        static final String USAGE_SUMMARY = "Program to chart the nucleotide distribution per cycle in a SAM or BAM file";
+        static final String USAGE_DETAILS = "This program charts the nucleotide distribution per cycle in a SAM or BAM file.<br /><br />" +
+                "Each cycle represents a new nucleotide added on to a growing oligonucleotide chain during sequencing.  " +
+                "The growing synthetic oligonucleotide chains are represented as the observed reads in a sequencing run.  " +
+                "However, as the run progresses, the accuracy of nucleotide incorporation by the DNA polymerase can degrade, such that " +
+                "base calls become ambiguous towards the end of a run and are indicated as unassigned nucleotides (N) in" +
+                " a read.  Using the CollectBaseDistributionByCycle tool, increased numbers of miscalled bases will be reflected " +
+                "in base distribution changes as well as an increase in the number of \"N\"s.  " +
+                "Thus, using this tool, the user can visually inspect the chart and determine which cycles to use " +
+                "(or not use) in downstream analyses.  <br /><br />" +
+                "Illumina's sequencing technology platform is described in the following video:" +
+                "<br /><br />www.youtube.com/watch?v=HMyCqWhwB8E " +
+                "<br /><h4>Usage example:</h4>" +
+                "<pre>" +
+                "java -jar picard.jar CollectBaseDistributionByCycle \\<br />" +
+                "     -CHART=collectbasedistbycycle.pdf \\<br />" +
+                "     -I=input.bam \\<br />" +
+                "     -O=output.txt" +
+                "</pre>" +
+                "<hr />"
+    ;
     @Option(shortName = "CHART", doc = "A file (with .pdf extension) to write the chart to.")
     public File CHART_OUTPUT;
 

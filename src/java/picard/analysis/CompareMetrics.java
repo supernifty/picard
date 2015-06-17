@@ -17,13 +17,22 @@ import java.util.List;
  * Compare two metrics files.
  */
 @CommandLineProgramProperties(
-        usage = CompareMetrics.USAGE,
-        usageShort = CompareMetrics.USAGE,
+        usage = CompareMetrics.USAGE_SUMMARY + CompareMetrics.USAGE_DETAIL,
+        usageShort = CompareMetrics.USAGE_SUMMARY,
         programGroup = Metrics.class
 )
 public class CompareMetrics extends CommandLineProgram {
-
-    static final String USAGE = "Compare two metrics files";
+    static final String USAGE_SUMMARY =  "Compares two metrics files";
+    static final String USAGE_DETAIL = "Compares the headers of the two input metrics files that have the same structure," +
+            " but come from different underlying metric classes.  Outputs can be either equal" +
+            " or not equal. <br /> "  +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar CompareMetrics \\<br />" +
+            "     -Mymetricfile1.txt \\<br />" +
+            "     -Mymetricfile2.txt" +
+            "</pre>" +
+            "<hr />";
 
     @PositionalArguments(minElements = 2, maxElements = 2)
     public List<File> metricsFiles;

@@ -30,12 +30,32 @@ import java.util.Arrays;
  * @author mdepristo
  */
 @CommandLineProgramProperties(
-        usage = "Replaces all read groups in the INPUT file with a single new read group and assigns " +
-                "all reads to this read group in the OUTPUT BAM",
-        usageShort = "Replaces read groups in a BAM or SAM file with a single new read group",
+        usage = AddOrReplaceReadGroups.USAGE_SUMMARY + AddOrReplaceReadGroups.USAGE_DETAILS,
+        usageShort = AddOrReplaceReadGroups.USAGE_SUMMARY,
         programGroup = SamOrBam.class
 )
 public class AddOrReplaceReadGroups extends CommandLineProgram {
+    static final String USAGE_SUMMARY = "Replaces read groups in a BAM file.  ";
+    static final String USAGE_DETAILS = "This tool enables the user to merge all the read group INPUT files into a single " +
+            "new read group in the OUTPUT file.  Each lane (Illumina) or slide (SOLiD) constitutes a separate read group.  " +
+            "Typically, an Illumina sequencer will produce up to eight read groups of data, corresponding to the 8 lanes of the instrument.  " +
+            "Merging read groups enables the user to combine data from multiple lanes or runs." +
+            "<br /><br /> " +
+            "Accepts INPUT \".bam\" files or Global Alliance for Genomics and Health (GA4GH) URLs*.  " +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar AddOrReplaceReadGroups \\<br />" +
+            "     -I=bamfile_1.bam \\<br />" +
+            "     -I=bamfile_2.bam \\<br />" +
+            "     -O=bamfile_1_2.bam \\<br />" +
+            "     -RGID=4 \\<br />" +
+            "     -RGLB=lib1 \\<br />" +
+            "     -RGPL=illumina \\<br />" +
+            "     -RGPU=unit1 \\<br />" +
+            "     -RGSM=20" +
+            "</pre>" +
+            "*For information on GA4GH, please see: http://ga4gh.org/#/documentation. " +
+            "<hr />" ;
 
     @Option(shortName= StandardOptionDefinitions.INPUT_SHORT_NAME, doc="Input file (bam or sam or a GA4GH url).")
     public String INPUT = null;

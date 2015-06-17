@@ -53,12 +53,25 @@ import java.util.Set;
  * SAMRecords, and the header contains only sequence records.
  */
 @CommandLineProgramProperties(
-        usage = "Read fasta or fasta.gz containing reference sequences, and write as a SAM or BAM file with only sequence dictionary.\n",
-        usageShort = "Creates a SAM or BAM file from reference sequence in fasta format",
+        usage = CreateSequenceDictionary.USAGE_SUMMARY + CreateSequenceDictionary.USAGE_DETAILS,
+        usageShort = CreateSequenceDictionary.USAGE_SUMMARY,
         programGroup = Fasta.class
 )
 public class CreateSequenceDictionary extends CommandLineProgram {
-
+    static final String USAGE_SUMMARY = "Creates a SAM or BAM file from reference sequence in fasta format.  ";
+    static final String USAGE_DETAILS = "Writes a SAM/BAM file from a fasta-formated reference sequence.  " +
+            "The output SAM file contains a header, but no SAMRecords and the header contains only sequence records." +
+            "<br /><br />" +
+            "The tool reads both fasta- or fasta.gz-containing reference sequences."  +
+            "" +
+            "<h4>Usage example:</h4>" +
+            "<pre>" +
+            "java -jar picard.jar CreateSequenceDictionary \\ <br />" +
+            "     -R=ReferenceSequence.fasta \\ <br />" +
+            "     -O=RefSeq.dict" +
+            "" +
+            "</pre>" +
+            "<hr />";
     // The following attributes define the command-line arguments
 
     @Option(doc = "Input reference fasta or fasta.gz", shortName = StandardOptionDefinitions.REFERENCE_SHORT_NAME)
